@@ -95,7 +95,7 @@ def login():
     flask.session['oauth_request_token'] = dict(zip(request_token._fields,
                                                     request_token))
     return_url = flask.request.referrer
-    if return_url and return_url.startswith(full_url('index')):
+    if return_url and return_url.startswith(full_url('main.index')):
         flask.session['oauth_redirect_target'] = return_url
     return flask.redirect(redirect)
 
@@ -120,13 +120,13 @@ def oauth_callback():
                                                     access_token))
     flask.session.pop('csrf_token', None)
     redirect_target = flask.session.pop('oauth_redirect_target', None)
-    return flask.redirect(redirect_target or flask.url_for('index'))
+    return flask.redirect(redirect_target or flask.url_for('main.index'))
 
 
 @users.route('/logout')
 def logout():
     flask.session.pop('oauth_access_token', None)
-    return flask.redirect(flask.url_for('index'))
+    return flask.redirect(flask.url_for('main.index'))
 
 
 def full_url(endpoint, **kwargs):
