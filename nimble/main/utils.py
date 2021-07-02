@@ -1,6 +1,8 @@
 import sys
 import flask
 import mwoauth
+import requests_oauthlib
+import mwapi
 
 from nimble import db
 
