@@ -1,0 +1,8 @@
+SECRET_KEY: '$(python -c "import os; print repr(os.urandom(24))")'
+SQLALCHEMY_DATABASE_URI: 'mysql://root:agboreugene7@localhost/nimble'
+SQLALCHEMY_POOL_RECYCLE: 90
+oauth:
+    consumer_key: cc63436117541a156ba606efda721a3d
+    consumer_secret: 20e2a2998b8ec168f83e89d144adca1e93f69c68
+
+# SQLALCHEMY_DATABASE_URI: 'mysql+pymysql://s54010:XzuhEko9giM1bkNX@clouddb1001/xxxx__nimble'

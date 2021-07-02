@@ -5,3 +5,7 @@ pytest
 pyyaml
 requests_oauthlib
 toolforge
+flask_sqlalchemy
+PyMySQL
+mysqlclient
+flask_login
