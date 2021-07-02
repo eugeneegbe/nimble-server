@@ -3,6 +3,7 @@ import flask
 import mwoauth
 import requests_oauthlib
 import mwapi
+import toolforge
 
 from nimble import db, app
 
@@ -23,6 +24,10 @@ def commit_changes_to_db():
         return True
     return False
 
+
+user_agent = toolforge.set_user_agent(
+    'example-tool',
+    email='agboreugene@gmail.com')
 
 
 if 'oauth' in app.config:
