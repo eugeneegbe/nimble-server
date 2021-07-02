@@ -4,7 +4,7 @@ import mwoauth
 import requests_oauthlib
 import mwapi
 
-from nimble import db
+from nimble import db, app
 
 def commit_changes_to_db():
     """
@@ -22,6 +22,14 @@ def commit_changes_to_db():
         db.session.flush()
         return True
     return False
+
+
+
+if 'oauth' in app.config:
+    oauth_config = app.config['oauth']
+    consumer_token = mwoauth.ConsumerToken(oauth_config['consumer_key'],
+                                            oauth_config['consumer_secret'])
+    index_php = 'https://meta.wikimedia.org/w/index.php'
 
 
 def authenticated_session():
