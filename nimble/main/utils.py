@@ -1,5 +1,6 @@
 import sys
 import flask
+import mwoauth
 
 from nimble import db
 

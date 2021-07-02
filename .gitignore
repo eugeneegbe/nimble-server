@@ -1,3 +1,5 @@
 /config.yaml
 /__pycache__/
 /.pytest_cache/
+nimble/__pycache__/
+nimble/users/__pycache__/
