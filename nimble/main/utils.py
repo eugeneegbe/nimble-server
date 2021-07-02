@@ -25,19 +25,17 @@ def commit_changes_to_db():
     return False
 
 
-user_agent = toolforge.set_user_agent(
+def authenticated_session():
+    user_agent = toolforge.set_user_agent(
     'example-tool',
     email='agboreugene@gmail.com')
 
+    if 'oauth' in app.config:
+        oauth_config = app.config['oauth']
+        consumer_token = mwoauth.ConsumerToken(oauth_config['consumer_key'],
+                                                oauth_config['consumer_secret'])
+        index_php = 'https://meta.wikimedia.org/w/index.php'
 
-if 'oauth' in app.config:
-    oauth_config = app.config['oauth']
-    consumer_token = mwoauth.ConsumerToken(oauth_config['consumer_key'],
-                                            oauth_config['consumer_secret'])
-    index_php = 'https://meta.wikimedia.org/w/index.php'
-
-
-def authenticated_session():
     if 'oauth_access_token' not in flask.session:
         return None
 

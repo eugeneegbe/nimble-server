@@ -5,7 +5,7 @@ import flask
 from flask import Blueprint, render_template, session, redirect, url_for, request
 from flask_login import current_user
 
-from .utils import authenticated_session
+from nimble.main.utils import authenticated_session
 
 
 main = Blueprint('main', __name__)
