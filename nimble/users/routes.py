@@ -107,9 +107,10 @@ def oauth_callback():
         already_logged_in = 'oauth_access_token' in flask.session
         query_string = flask.request.query_string\
                                     .decode(flask.request.url_charset)
-        return flask.render_template('error-oauth-callback.html',
-                                    already_logged_in=already_logged_in,
-                                    query_string=query_string)
+        # return flask.render_template('error-oauth-callback.html',
+        #                             already_logged_in=already_logged_in,
+        #                             query_string=query_string)
+        return "Failure"
     request_token = mwoauth.RequestToken(**oauth_request_token)
     access_token = mwoauth.complete(index_php,
                                     consumer_token,
@@ -120,8 +121,8 @@ def oauth_callback():
                                                     access_token))
     flask.session.pop('csrf_token', None)
     redirect_target = flask.session.pop('oauth_redirect_target', None)
-    return flask.redirect(redirect_target or flask.url_for('main.index'))
-
+    # return flask.redirect(redirect_target or flask.url_for('main.index'))
+    return "Success"
 
 @users.route('/logout')
 def logout():
