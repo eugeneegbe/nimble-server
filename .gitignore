@@ -4,3 +4,4 @@ nimble/config.yaml
 nimble/__pycache__/
 nimble/users/__pycache__/
 nimble/main/__pycache__/
+nimble/posts/__pycache__/
