@@ -7,10 +7,12 @@ import requests_oauthlib
 import string
 import toolforge
 import yaml
+import json
 
 from flask import Blueprint
-from nimble import app
-from nimble.main.utils import authenticated_session
+from nimble import app, db
+from nimble.models import User
+from nimble.main.utils import authenticated_session, commit_changes_to_db
 
 
 users = Blueprint('users', __name__)
@@ -122,7 +124,40 @@ def oauth_callback():
     flask.session.pop('csrf_token', None)
     redirect_target = flask.session.pop('oauth_redirect_target', None)
     # return flask.redirect(redirect_target or flask.url_for('main.index'))
+    session = authenticated_session()
+    if session:
+        userinfo = session.get(action='query',
+                                meta='userinfo',
+                                uiprop='options')['query']['userinfo']
+        user_name = userinfo['name']
+        user = User.query.filter_by(username=user_name).first()
+        if user is None:
+            userinfo = session.get(action='query',
+                            meta='userinfo',
+                            uiprop='options')['query']['userinfo']
+            new_user = User(username=userinfo['name'])
+            db.session.add(new_user)
+            if commit_changes_to_db(): # success
+                flask.flash('Error adding user to database')
     return "Success"
+
+
+@users.route('/api/v1/current_user')
+def get_current_user_info():
+    session = authenticated_session()
+    user_infomration = []
+    user_info_obj = {}
+    if session:
+        userinfo = session.get(action='query',
+                            meta='userinfo',
+                            uiprop='options')['query']['userinfo']
+        user = User.query.filter_by(username=userinfo['name']).first()
+        user_info_obj['username'] = user.username
+        user_info_obj['lang'] = user.pref_lang
+        user_info_obj['role'] = user.role
+    user_infomration.append(user_info_obj)
+    return json.dumps(user_infomration)
+
 
 @users.route('/logout')
 def logout():
