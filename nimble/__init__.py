@@ -43,6 +43,7 @@ from nimble.main.routes import main
 from nimble.users.routes import users
 from nimble.posts.routes import post
 from nimble.replies.routes import reply
+from nimble.topics.routes import topic
 
 
 # Here we register the various blue_prints of our app
@@ -50,3 +51,4 @@ app.register_blueprint(main)
 app.register_blueprint(users)
 app.register_blueprint(post)
 app.register_blueprint(reply)
+app.register_blueprint(topic)
