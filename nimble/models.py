@@ -65,8 +65,8 @@ class Topic(db.Model, UserMixin):
 class Post(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, index=True)
     topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'), nullable=False)
-    title = db.Column(db.String(70), unique=True, nullable=False)
-    username = db.Column(db.String(20), unique=True, nullable=False)
+    title = db.Column(db.String(70), nullable=False)
+    username = db.Column(db.String(20), nullable=False)
     timestamp = db.Column(db.Date, default=datetime.now().strftime('%Y-%m-%d'))
     text = db.Column(db.String(3000), nullable=True)
     tags = db.Column(db.String(200))

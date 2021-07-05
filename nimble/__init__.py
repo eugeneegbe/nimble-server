@@ -41,8 +41,10 @@ def load_user(user_id):
 # we import all our blueprint routes here
 from nimble.main.routes import main
 from nimble.users.routes import users
+from nimble.posts.routes import post
 
 
 # Here we register the various blue_prints of our app
 app.register_blueprint(main)
 app.register_blueprint(users)
+app.register_blueprint(post)
