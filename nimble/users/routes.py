@@ -9,7 +9,7 @@ import toolforge
 import yaml
 import json
 
-from flask import Blueprint, request,
+from flask import Blueprint, request
 from nimble import app, db
 from nimble.models import User
 from nimble.main.utils import authenticated_session, commit_changes_to_db
