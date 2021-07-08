@@ -145,7 +145,7 @@ def oauth_callback():
                                     uiprop='options')['query']['userinfo']
 
     user_token = User.query.filter_by(username=userinfo['name']).first().token
-    return flask.redirect("https://nimble.toolforge.org/oauth/callback?token=" + user_token, code=302)
+    return flask.redirect("https://nimble.toolforge.org/oauth/callback?token=" + str(user_token), code=302)
 
 
 @users.route('/api/v1/verify_token')
