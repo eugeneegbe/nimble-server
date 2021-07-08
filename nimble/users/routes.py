@@ -9,7 +9,7 @@ import toolforge
 import yaml
 import json
 
-from flask import Blueprint, request
+from flask import Blueprint, request,
 from nimble import app, db
 from nimble.models import User
 from nimble.main.utils import authenticated_session, commit_changes_to_db
@@ -145,7 +145,7 @@ def oauth_callback():
                                     uiprop='options')['query']['userinfo']
 
     user_token = User.query.filter_by(username=userinfo['name']).first().token
-    return redirect("https://nimble.toolforge.org/oauth/callback?token=" + user_token, code=302)
+    return flask.redirect("https://nimble.toolforge.org/oauth/callback?token=" + user_token, code=302)
 
 
 @users.route('/api/v1/verify_token')
