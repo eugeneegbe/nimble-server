@@ -140,7 +140,6 @@ def oauth_callback():
             db.session.add(new_user)
             if commit_changes_to_db(): # success
                 flask.flash('Error adding user to database')
-    session = authenticated_session()
     userinfo = session.get(action='query',
                                     meta='userinfo',
                                     uiprop='options')['query']['userinfo']
