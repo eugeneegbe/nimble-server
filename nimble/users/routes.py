@@ -9,11 +9,11 @@ import toolforge
 import yaml
 import json
 
-from flask import Blueprint
+from flask import Blueprint, request
 from nimble import app, db
 from nimble.models import User
 from nimble.main.utils import authenticated_session, commit_changes_to_db
-
+from nimble.users.utils import generate_random_token
 
 users = Blueprint('users', __name__)
 
@@ -131,32 +131,41 @@ def oauth_callback():
                                 uiprop='options')['query']['userinfo']
         user_name = userinfo['name']
         user = User.query.filter_by(username=user_name).first()
+        user_token = generate_random_token()
         if user is None:
             userinfo = session.get(action='query',
                             meta='userinfo',
                             uiprop='options')['query']['userinfo']
-            new_user = User(username=userinfo['name'])
+            new_user = User(username=userinfo['name'], token=user_token)
             db.session.add(new_user)
             if commit_changes_to_db(): # success
                 flask.flash('Error adding user to database')
-    return "Success"
-
-
-@users.route('/api/v1/current_user')
-def get_current_user_info():
     session = authenticated_session()
-    user_infomration = []
-    user_info_obj = {}
-    if session:
-        userinfo = session.get(action='query',
-                            meta='userinfo',
-                            uiprop='options')['query']['userinfo']
-        user = User.query.filter_by(username=userinfo['name']).first()
+    userinfo = session.get(action='query',
+                                    meta='userinfo',
+                                    uiprop='options')['query']['userinfo']
+
+    user_token = User.query.filter_by(username=userinfo['name']).first().token
+    return redirect("https://nimble.toolforge.org/oauth/callback?token=" + user_token, code=302)
+
+
+@users.route('/api/v1/verify_token')
+def get_current_user_info():
+    token = request.args.get('token')
+
+    user = User.query.filter_by(token=token).first()
+    if not user:
+        return "Failure"
+    else:
+        user_infomration = []    
+        user_info_obj = {}
+
         user_info_obj['username'] = user.username
         user_info_obj['lang'] = user.pref_lang
         user_info_obj['role'] = user.role
-    user_infomration.append(user_info_obj)
-    return json.dumps(user_infomration)
+
+        user_infomration.append(user_info_obj)
+        return json.dumps(user_infomration)
 
 
 @users.route('/logout')

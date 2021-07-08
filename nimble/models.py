@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     pref_lang = db.Column(db.String(10), default='en')
     role = db.Column(db.Boolean, default=False)
+    token = db.Column(db.String(40), unique=True, nullable=False)
 
     def __repr__(self):
         # This is what is shown when object is printed
