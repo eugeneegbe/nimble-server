@@ -156,14 +156,14 @@ def get_current_user_info():
     if not user:
         return "Failure"
     else:
-        user_infomration = []    
+        user_infomration = {}   
         user_info_obj = {}
 
         user_info_obj['username'] = user.username
         user_info_obj['lang'] = user.pref_lang
         user_info_obj['role'] = user.role
 
-        user_infomration.append(user_info_obj)
+        user_infomration['user'] = user_info_obj
         return json.dumps(user_infomration)
 
 
