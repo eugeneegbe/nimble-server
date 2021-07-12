@@ -9,3 +9,4 @@ flask_sqlalchemy
 PyMySQL
 mysqlclient
 flask_login
+flask-cors
