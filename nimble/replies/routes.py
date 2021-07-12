@@ -33,5 +33,6 @@ def create_reply():
 
 @reply.route('/api/v1/replies', methods=['GET', 'POST'])
 def get_all_reply_data():
-    replies_data = get_all_replies()
+    post_id = request.args.get('post_id', None);
+    replies_data = get_all_replies(post_id)
     return json.dumps(replies_data)
