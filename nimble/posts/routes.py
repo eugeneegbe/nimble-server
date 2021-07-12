@@ -21,8 +21,8 @@ def get_all_post_data():
 
 @post.route('/api/v1/post', methods=['GET', 'POST'])
 def get_single_post_data():
-    post_id = request.args.get('id')
-    if not post_id:
+    post_id = request.args.get('id', None)
+    if post_id is None:
         return 'Failure'
     post_data = get_post(post_id)
     return json.dumps(post_data)
