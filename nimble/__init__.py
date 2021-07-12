@@ -5,9 +5,10 @@ import flask
 from flask import request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_cors import CORS
 
 app = flask.Flask(__name__)
-
+CORS(app)
 
 __dir__ = os.path.dirname(__file__)
 try:
