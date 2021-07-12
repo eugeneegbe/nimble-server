@@ -148,7 +148,7 @@ def oauth_callback():
     return flask.redirect("https://nimble.toolforge.org/oauth/callback?token=" + str(user_token), code=302)
 
 
-@users.route('/api/v1/verify_token')
+@users.route('/api/v1/verify_token', methods=['POST'])
 def get_current_user_info():
     token = request.args.get('token')
 
