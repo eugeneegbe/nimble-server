@@ -165,6 +165,19 @@ def get_current_user_info():
         return json.dumps(user_infomration)
 
 
+@users.route('/api/v1/add_stage', methods=['GET','POST'])
+def add_user_stage():
+    username = request.args.get('username')
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return "Failure"
+    user.current_stage = user.current_stage + 1
+    if commit_changes_to_db():
+        return 'Failure'
+    else:
+        return 'Success'
+
+
 @users.route('/logout')
 def logout():
     flask.session.pop('oauth_access_token', None)
