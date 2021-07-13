@@ -24,6 +24,20 @@ class User(db.Model, UserMixin):
                 self.role)
 
 
+class Account(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    p_username = db.Column(db.String(20), unique=True, nullable=False)
+    p_email = db.Column(db.String(30), unique=True, nullable=False)
+    status = db.Column(db.String(40), nullable=False, default="pending")
+
+    def __repr__(self):
+        # This is what is shown when object is printed
+        return "Account({}, {}, {})".format(
+                self.p_username,
+                self.p_email,
+                self.status)
+
+
 class Article(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.String(20), nullable=False)

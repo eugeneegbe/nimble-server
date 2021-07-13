@@ -46,6 +46,7 @@ from nimble.posts.routes import post
 from nimble.replies.routes import reply
 from nimble.topics.routes import topic
 from nimble.tags.routes import tag
+from nimble.accounts.routes import account
 
 
 # Here we register the various blue_prints of our app
@@ -55,3 +56,4 @@ app.register_blueprint(post)
 app.register_blueprint(reply)
 app.register_blueprint(topic)
 app.register_blueprint(tag)
+app.register_blueprint(account)
