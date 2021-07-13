@@ -109,10 +109,7 @@ def oauth_callback():
         already_logged_in = 'oauth_access_token' in flask.session
         query_string = flask.request.query_string\
                                     .decode(flask.request.url_charset)
-        # return flask.render_template('error-oauth-callback.html',
-        #                             already_logged_in=already_logged_in,
-        #                             query_string=query_string)
-        return "Failure"
+        return flask.redirect("https://nimble.toolforge.org/get-started?oauth=failed", code=302)
     request_token = mwoauth.RequestToken(**oauth_request_token)
     access_token = mwoauth.complete(index_php,
                                     consumer_token,
