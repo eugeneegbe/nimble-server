@@ -9,19 +9,22 @@ from nimble import db, login_manager
 def user_loader(user_id):
     return User.query.get(int(user_id))
 
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, index=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     pref_lang = db.Column(db.String(10), default='en')
     role = db.Column(db.Boolean, default=False)
     token = db.Column(db.String(40), unique=True, nullable=False)
+    current_stage = db.Column(db.Integer, nullable=False, default=1)
 
     def __repr__(self):
         # This is what is shown when object is printed
-        return "User({}, {}, {})".format(
+        return "User({}, {}, {}, {})".format(
                 self.name,
                 self.pref_lang,
-                self.role)
+                self.role,
+                self.current_stage)
 
 
 class Account(db.Model, UserMixin):
