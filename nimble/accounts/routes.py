@@ -6,7 +6,7 @@ from flask import Blueprint, request
 from nimble import db
 from nimble.models import Account, User
 from nimble.main.utils import commit_changes_to_db
-from nimble.accounts.utils import get_all_accounts
+from nimble.accounts.utils import get_all_accounts, build_status_error
 
 
 account = Blueprint('account', __name__)
@@ -29,8 +29,8 @@ def create_account():
         account = Account(p_username=p_username, p_email=p_email)
         db.session.add(account)
         if commit_changes_to_db():
-            return 'Failure'
+            return build_status_error()
         else:
             return 'Success'
     else:
-        return "Failure"
+        return build_status_error()

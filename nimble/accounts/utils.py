@@ -1,4 +1,4 @@
-import sys
+import json
 
 from nimble.models import Account
 
@@ -18,3 +18,15 @@ def get_all_accounts():
         account_data['status'] = account.status
         all_post_data.append(account_data)
     return all_post_data
+
+
+def build_status_error():
+    """Creates custom error object for failed account creattion
+
+    Returns:
+        object: Json object of the error code and message
+    """
+    error_obj = {}
+    error_obj['error'] = 'A request may have been made with this username or email'
+    error_obj['status_code'] = 402
+    return json.dumps(error_obj)
