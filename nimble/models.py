@@ -45,6 +45,8 @@ class Article(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.String(20), nullable=False)
     url = db.Column(db.String(1000), nullable=False)
+    status = db.Column(db.Boolean, default=False)
+    hint = db.Column(db.String(1000), nullable=False)
     created = db.Column(db.Date, default=datetime.now().strftime('%Y-%m-%d'))
 
     def __repr__(self):
