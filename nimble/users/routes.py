@@ -169,13 +169,16 @@ def get_current_user_info():
 def add_user_stage():
     username = request.args.get('username')
     user = User.query.filter_by(username=username).first()
+    stage_info = {}
     if user is None:
         return "Failure"
     user.current_stage = user.current_stage + 1
     if commit_changes_to_db():
         return 'Failure'
     else:
-        return 'Success'
+        stage_info['username'] = user.username
+        stage_info['current_stage'] = user.current_stage
+        return json.dumps(stage_info)
 
 
 @users.route('/logout')
