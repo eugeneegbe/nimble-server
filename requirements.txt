@@ -11,3 +11,4 @@ mysqlclient
 flask_login
 flask-cors
 wikipedia-api
+flask_wtf
