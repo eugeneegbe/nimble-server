@@ -10,3 +10,4 @@ PyMySQL
 mysqlclient
 flask_login
 flask-cors
+wikipedia-api

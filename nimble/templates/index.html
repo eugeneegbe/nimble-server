@@ -3,5 +3,12 @@
 <div class="jumbotron">
   <h1>Hello, {{ name }}!</h1>
   <p class="lead">So nice to see you!</p>
+
+  <hr>
+  {% if admin %}
+    <a href="{{url_for('article.import_articles') }}" class="btn btn-success"> Import Data</a>
+    {% else %}
+      <p>To import data please reachout to community@wmgh.org</p>
+  {% endif %}
 </div>
 {% endblock %}

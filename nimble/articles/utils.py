@@ -1,5 +1,6 @@
 import sys
 
+import wikipediaapi
 from nimble.models import Article
 
 def get_all_articles():
@@ -22,3 +23,20 @@ def get_all_articles():
 
         all_article_data.append(article_data)
     return all_article_data[0:4]
+
+
+def get_category_articles(category, level=0, max_level=1):
+    articles = []
+    wiki_wiki = wikipediaapi.Wikipedia('en')
+    cat = wiki_wiki.page("Category:" + category)
+    for c in cat.categorymembers.values():
+        if ':' not in c.title:
+            articles.append(c.title)
+            if c.ns == wikipediaapi.Namespace.CATEGORY and level < max_level:
+                get_category_articles(level=level + 1, max_level=max_level)
+    return articles
+
+
+def build_article_url(article):
+    base_url = 'https://en.wikipedia.org/wiki/'
+    return base_url + article.replace(' ', '_')
